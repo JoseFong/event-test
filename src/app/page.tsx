@@ -44,7 +44,7 @@ function HomePage() {
       const body = {
         userId: userId,
       };
-      const res = await axios.post("/api/deleteUser", body);
+      const res = await axios.post("/api/delete-user", body);
       toast.success("Usuario eliminado exitosamente.");
       fetchUsers();
     } catch (e: any) {
