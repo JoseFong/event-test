@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req:Request){
     try{
+        console.log("getting users")
         const users = await getAllUsers()
         return NextResponse.json(users)
     }catch(e:any){

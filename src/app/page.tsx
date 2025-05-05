@@ -9,6 +9,8 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
+import cat from "@/imgs/cat.jpg";
 
 function HomePage() {
   const [users, setUsers] = useState([]);
@@ -110,17 +112,49 @@ function HomePage() {
       >
         Presioname!
       </button>
-      {users.map((u: User) => (
-        <div key={u.id}>
-          {u.id} {u.mail} {u.password} {u.name} {u.lastname}{" "}
-          <button
-            onClick={() => fetchDeleteUser(u.id)}
-            className="text-red-500 underline"
-          >
-            Eliminar
-          </button>
-        </div>
-      ))}
+      <button
+        onClick={fetchUsers}
+        className="bg-blue-700 text-white py-1 px-5 rounded-xl hover:bg-blue-800 active:bg-blue-900 transition-colors"
+      >
+        Refresh
+      </button>
+      <table className="m-2">
+        <thead>
+          <tr>
+            <th className="border-2 border-black border-solid p-1">Id</th>
+            <th className="border-2 border-black border-solid p-1">Correo</th>
+            <th className="border-2 border-black border-solid p-1">Nombre</th>
+            <th className="border-2 border-black border-solid p-1">
+              Contraseña Encriptada
+            </th>
+            <th className="border-2 border-black border-solid p-1">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((u: User) => (
+            <tr key={u.id}>
+              <td className="border-2 border-black border-solid p-1">{u.id}</td>
+              <td className="border-2 border-black border-solid p-1">
+                {u.mail}
+              </td>
+              <td className="border-2 border-black border-solid p-1">
+                {u.name} {u.lastname}
+              </td>
+              <td className="border-2 border-black border-solid p-1">
+                {u.password}
+              </td>
+              <td className="border-2 border-black border-solid p-1">
+                <button
+                  className="text-red-600 underline"
+                  onClick={() => fetchDeleteUser(u.id)}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <div className="flex flex-col">
         <label>Email</label>
         <input
@@ -165,6 +199,7 @@ function HomePage() {
         >
           Registrar
         </button>
+        <Image src={cat} alt={"Gato"} className="w-1/2 mt-5" />
       </div>
     </div>
   );
