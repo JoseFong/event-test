@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -112,6 +115,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -133,7 +141,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\fomi0\\Documents\\AppsConBasesDeDatos\\event-test\\src\\generated\\prisma",
+      "value": "C:\\Users\\fomi0\\Documents\\GitHub\\event-test\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -147,11 +155,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\fomi0\\Documents\\AppsConBasesDeDatos\\event-test\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\fomi0\\Documents\\GitHub\\event-test\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -160,17 +168,18 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "file:./dev.db"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  mail     String  @unique\n  password String\n  name     String\n  lastname String\n  Event    Event[]\n}\n\nmodel Event {\n  id     Int     @id @default(autoincrement())\n  name   String\n  date   String\n  allday Int\n  start  String\n  end    String?\n  user   User    @relation(fields: [userId], references: [id])\n  userId Int\n}\n",
-  "inlineSchemaHash": "b08209d417d39a0722f00897f30fd68b6a5b14aea71c1eff51664226bf81fa54",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int     @id @default(autoincrement())\n  mail     String  @unique\n  password String\n  name     String\n  lastname String\n  Event    Event[]\n}\n\nmodel Event {\n  id     Int     @id @default(autoincrement())\n  name   String\n  date   String\n  allday Int\n  start  String\n  end    String?\n  user   User    @relation(fields: [userId], references: [id])\n  userId Int\n}\n",
+  "inlineSchemaHash": "d6741c34ed702c57cf1e884d0e22641b5a58a511c828a65576dcf317f5505bbb",
   "copyEngine": true
 }
 config.dirname = '/'
