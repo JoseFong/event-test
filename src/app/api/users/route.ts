@@ -1,19 +1,9 @@
-import { deleteEventsFromUser } from "@/Controllers/eventController";
-import { createUser, deleteUser, getAllUsers } from "@/Controllers/UserController";
+import { createUser} from "@/Controllers/UserController";
 import prisma from "@/libs/prisma";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken"
 import {cookies} from "next/headers"
 
-export async function GET(req:Request){
-    try{
-        console.log("getting users")
-        const users = await getAllUsers()
-        return NextResponse.json(users)
-    }catch(e:any){
-        return NextResponse.json({message:"Error 500: "+e.message},{status:500})
-    }
-}
 
 export async function POST(req:Request){
     try{
