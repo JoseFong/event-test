@@ -1,7 +1,7 @@
 import prisma from "@/libs/prisma";
 
-export async function deleteEventsFromUser(id:number){
-    await prisma.event.deleteMany({
+export async function getEventsFromUser(id:number){
+    return await prisma.event.findMany({
         where:{
             userId:id
         }
