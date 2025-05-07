@@ -1016,6 +1016,7 @@ export namespace Prisma {
     password: string | null
     name: string | null
     lastname: string | null
+    type: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1024,6 +1025,7 @@ export namespace Prisma {
     password: string | null
     name: string | null
     lastname: string | null
+    type: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1032,6 +1034,7 @@ export namespace Prisma {
     password: number
     name: number
     lastname: number
+    type: number
     _all: number
   }
 
@@ -1050,6 +1053,7 @@ export namespace Prisma {
     password?: true
     name?: true
     lastname?: true
+    type?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1058,6 +1062,7 @@ export namespace Prisma {
     password?: true
     name?: true
     lastname?: true
+    type?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1066,6 +1071,7 @@ export namespace Prisma {
     password?: true
     name?: true
     lastname?: true
+    type?: true
     _all?: true
   }
 
@@ -1161,6 +1167,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1188,6 +1195,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     lastname?: boolean
+    type?: boolean
     Event?: boolean | User$EventArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1198,6 +1206,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     lastname?: boolean
+    type?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1206,6 +1215,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     lastname?: boolean
+    type?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1214,9 +1224,10 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     lastname?: boolean
+    type?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "mail" | "password" | "name" | "lastname", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "mail" | "password" | "name" | "lastname" | "type", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Event?: boolean | User$EventArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1235,6 +1246,7 @@ export namespace Prisma {
       password: string
       name: string
       lastname: string
+      type: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1664,6 +1676,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly lastname: FieldRef<"User", 'String'>
+    readonly type: FieldRef<"User", 'String'>
   }
     
 
@@ -3239,7 +3252,8 @@ export namespace Prisma {
     mail: 'mail',
     password: 'password',
     name: 'name',
-    lastname: 'lastname'
+    lastname: 'lastname',
+    type: 'type'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3341,6 +3355,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     lastname?: StringFilter<"User"> | string
+    type?: StringFilter<"User"> | string
     Event?: EventListRelationFilter
   }
 
@@ -3350,6 +3365,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     lastname?: SortOrder
+    type?: SortOrder
     Event?: EventOrderByRelationAggregateInput
   }
 
@@ -3362,6 +3378,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     lastname?: StringFilter<"User"> | string
+    type?: StringFilter<"User"> | string
     Event?: EventListRelationFilter
   }, "id" | "mail">
 
@@ -3371,6 +3388,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     lastname?: SortOrder
+    type?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -3387,6 +3405,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     lastname?: StringWithAggregatesFilter<"User"> | string
+    type?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type EventWhereInput = {
@@ -3461,6 +3480,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
     Event?: EventCreateNestedManyWithoutUserInput
   }
 
@@ -3470,6 +3490,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
     Event?: EventUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -3478,6 +3499,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     Event?: EventUpdateManyWithoutUserNestedInput
   }
 
@@ -3487,6 +3509,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     Event?: EventUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -3496,6 +3519,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3503,6 +3527,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3511,6 +3536,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type EventCreateInput = {
@@ -3621,6 +3647,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     lastname?: SortOrder
+    type?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -3633,6 +3660,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     lastname?: SortOrder
+    type?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3641,6 +3669,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     lastname?: SortOrder
+    type?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -4010,6 +4039,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
   }
 
   export type UserUncheckedCreateWithoutEventInput = {
@@ -4018,6 +4048,7 @@ export namespace Prisma {
     password: string
     name: string
     lastname: string
+    type: string
   }
 
   export type UserCreateOrConnectWithoutEventInput = {
@@ -4041,6 +4072,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateWithoutEventInput = {
@@ -4049,6 +4081,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
   export type EventCreateManyUserInput = {

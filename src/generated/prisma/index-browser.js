@@ -125,7 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   mail: 'mail',
   password: 'password',
   name: 'name',
-  lastname: 'lastname'
+  lastname: 'lastname',
+  type: 'type'
 };
 
 exports.Prisma.EventScalarFieldEnum = {

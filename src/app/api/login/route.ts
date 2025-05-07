@@ -20,12 +20,17 @@ export async function POST(req:Request){
                 return NextResponse.json({message:"Credenciales incorrectas"},{status:400})
             }else{
                 const token = jwt.sign(
-                    {id:user.id,name:user.name,mail:user.mail,lastname:user.lastname},
+                    {id:user.id,name:user.name,mail:user.mail,lastname:user.lastname,type:user.type},
                     process.env.JWT_SECRET!,
                     {expiresIn:"7d"}
                )
                 
                 const cookieStore = await cookies()
+                const cookie = cookieStore.get("userId")
+               if(cookie){
+                cookieStore.delete("userId")
+               }
+
                 cookieStore.set({
                     name: "userId",
                     value: token,

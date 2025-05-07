@@ -7,3 +7,11 @@ export async function getEventsFromUser(id:number){
         }
     })
 }
+
+export async function deleteEventsFromUser(id:number ){
+    await prisma.event.deleteMany({
+        where:{
+            userId: id
+        }
+    })
+}

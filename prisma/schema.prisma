@@ -17,6 +17,7 @@ model User {
   password String
   name     String
   lastname String
+  type     String
   Event    Event[]
 }
 
