@@ -1,3 +1,5 @@
+import { Event } from "@/generated/prisma"
+
 export function validMail(str:string){
     if(!str.includes("@")) return false
     if(!str.includes(".")) return false
@@ -30,3 +32,4 @@ export function validTimes(start:string,end:string){
     if(startInt>endInt) return false
     return true
 }
+

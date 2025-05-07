@@ -1,11 +1,15 @@
 import prisma from "@/libs/prisma";
+import { buildCalendarObj, sortEventsByDate } from "@/utils/dateLogic";
 
 export async function getEventsFromUser(id:number){
-    return await prisma.event.findMany({
+    const events = await prisma.event.findMany({
         where:{
             userId:id
         }
     })
+
+    const sortedEvents:any = sortEventsByDate(events)
+    return sortedEvents
 }
 
 export async function deleteEventsFromUser(id:number ){

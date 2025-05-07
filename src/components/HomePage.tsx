@@ -12,6 +12,14 @@ import EditUser from "./EditUser";
 import AddEvent from "./AddEvent";
 import ConfirmDeleteEvent from "./ConfirmDeleteEvent";
 import EditEvent from "./EditEvent";
+import {
+  buildCalendarObj,
+  isThisMonth,
+  isThisWeek,
+  isToday,
+} from "@/utils/dateLogic";
+import EventInfo from "./EventInfo";
+import Calendar from "./Calendar";
 
 function HomePage({ user }: { user: any }) {
   const router = useRouter();
@@ -19,6 +27,11 @@ function HomePage({ user }: { user: any }) {
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [getPasswordModalOpen, setGetPasswordModalOpen] = useState(false);
+
+  const [eventsToday, setEventsToday] = useState<Event[]>([]);
+  const [eventsWeek, setEventsWeek] = useState<Event[]>([]);
+  const [eventsMonth, setEventsMonth] = useState<Event[]>([]);
+  const [eventsElse, setEventsElse] = useState<Event[]>([]);
 
   async function logout() {
     try {
@@ -57,106 +70,113 @@ function HomePage({ user }: { user: any }) {
     setEditModalOpen(true);
   }
 
-  return (
-    <div className="p-2 flex flex-col items-start">
-      <h1 className="text-lg font-bold">
-        Bienvenido(a), {user.name} {user.lastname}
-      </h1>
-      <GetPassword
-        open={getPasswordModalOpen}
-        setOpen={setGetPasswordModalOpen}
-        onSuccess={onPasswordSuccess}
-      />
-      <EditUser user={user} open={editModalOpen} setOpen={setEditModalOpen} />
-      <button
-        onClick={() => setGetPasswordModalOpen(true)}
-        className="underline"
-      >
-        Configurar cuenta
-      </button>
-      <button onClick={logout} className="underline">
-        Cerrar sesión
-      </button>
+  useEffect(() => {
+    setEventsToday([]);
+    setEventsWeek([]);
+    setEventsMonth([]);
+    setEventsElse([]);
+    if (events.length > 0) {
+      events.map((e: Event) => {
+        if (isToday(e.date)) {
+          setEventsToday((eventsToday) => [...eventsToday, e]);
+        } else if (isThisWeek(e.date)) {
+          setEventsWeek((eventsWeek) => [...eventsWeek, e]);
+        } else if (isThisMonth(e.date)) {
+          setEventsMonth((eventsMonth) => [...eventsMonth, e]);
+        } else {
+          setEventsElse((eventsElse) => [...eventsElse, e]);
+        }
+      });
+    }
+  }, [events]);
 
-      <h1 className="font-bold text-lg mt-3">Eventos</h1>
-      {loadingEvents ? (
-        <div className="flex flex-col gap-1">
-          <div className="flex flex-row gap-1">
-            <Skeleton className="w-6 h-6" />
-            <Skeleton className="w-20 h-6" />
-            <Skeleton className="w-20 h-6" />
+  return (
+    <div className="min-w-screen min-h-screen bg-zinc-800 p-8 flex flex-col gap-5">
+      <div className="flex flex-row gap-2 items-center">
+        <h1 className="text-3xl text-white font-bold">
+          Bienvenido/a {user.name} {user.lastname}
+        </h1>
+        <button className="w-7" onClick={() => setGetPasswordModalOpen(true)}>
+          <img
+            src="https://img.icons8.com/m_rounded/512/FFFFFF/settings.png"
+            className="hover:opacity-70 transition-all"
+          />
+        </button>
+        <button className="w-7" onClick={logout}>
+          <img
+            src="https://static-00.iconduck.com/assets.00/logout-icon-2048x2046-yqonjwjv.png"
+            className="hover:opacity-70 transition-all"
+          />
+        </button>
+        <GetPassword
+          open={getPasswordModalOpen}
+          setOpen={setGetPasswordModalOpen}
+          onSuccess={onPasswordSuccess}
+        />
+        <EditUser user={user} open={editModalOpen} setOpen={setEditModalOpen} />
+      </div>
+      <div className="flex flex-row gap-5">
+        <div className="flex flex-col w-2/5 gap-3">
+          <div>
+            <AddEvent user={user} fetchEventsFromUser={fetchEventsFromUser} />
           </div>
-          <div className="flex flex-row gap-1">
-            <Skeleton className="w-6 h-6" />
-            <Skeleton className="w-20 h-6" />
-            <Skeleton className="w-20 h-6" />
+          <div className="flex flex-col gap-3 w-full">
+            <h1 className="font-bold text-xl text-white">Tus eventos de hoy</h1>
+            {eventsToday.length === 0 ? (
+              <div className="text-white bg-zinc-700 p-3 rounded-lg shadow-lg">
+                No tienes eventos hoy
+              </div>
+            ) : (
+              <>
+                {eventsToday.map((e: any) => (
+                  <EventInfo e={e} />
+                ))}
+              </>
+            )}
+            <h1 className="font-bold text-xl text-white">
+              Tus eventos de esta semana
+            </h1>
+            {eventsWeek.length === 0 ? (
+              <div className="text-white bg-zinc-700 p-3 rounded-lg shadow-lg">
+                No tienes eventos esta semana
+              </div>
+            ) : (
+              <>
+                {eventsWeek.map((e: any) => (
+                  <EventInfo e={e} />
+                ))}
+              </>
+            )}
+            <h1 className="font-bold text-xl text-white">
+              Tus eventos de este mes
+            </h1>
+            {eventsMonth.length === 0 ? (
+              <div className="text-white bg-zinc-700 p-3 rounded-lg shadow-lg">
+                No tienes eventos este mes
+              </div>
+            ) : (
+              <>
+                {eventsMonth.map((e: any) => (
+                  <EventInfo e={e} />
+                ))}
+              </>
+            )}
+            <h1 className="font-bold text-xl text-white">Otros eventos</h1>
+            {eventsElse.length === 0 ? (
+              <div className="text-white bg-zinc-700 p-3 rounded-lg shadow-lg">
+                No tienes otros eventos
+              </div>
+            ) : (
+              <>
+                {eventsElse.map((e: any) => (
+                  <EventInfo e={e} />
+                ))}
+              </>
+            )}
           </div>
         </div>
-      ) : (
-        <>
-          <table className="mt-1">
-            <thead>
-              <tr>
-                <th className="border-2 border-solid border-black p-1">Id</th>
-                <th className="border-2 border-solid border-black p-1">
-                  Evento
-                </th>
-                <th className="border-2 border-solid border-black p-1">Dia</th>
-                <th className="border-2 border-solid border-black p-1">
-                  Duracion
-                </th>
-                <th className="border-2 border-solid border-black p-1">
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.map((e: Event) => (
-                <tr key={e.id}>
-                  <td className="border-2 border-solid border-black p-1">
-                    {e.id}
-                  </td>
-                  <td className="border-2 border-solid border-black p-1">
-                    {e.name}
-                  </td>
-                  <td className="border-2 border-solid border-black p-1">
-                    {e.date}
-                  </td>
-                  <td className="border-2 border-solid border-black p-1">
-                    {e.allday === 1 ? (
-                      <>Todo el día</>
-                    ) : (
-                      <>
-                        {e.end === "" ? (
-                          <>{e.start}</>
-                        ) : (
-                          <>
-                            {e.start} - {e.end}
-                          </>
-                        )}
-                      </>
-                    )}
-                  </td>
-                  <td className="border-2 border-solid border-black p-1">
-                    <EditEvent
-                      user={user}
-                      event={e}
-                      fetchEventsFromUser={fetchEventsFromUser}
-                    />
-                    <ConfirmDeleteEvent
-                      event={e}
-                      fetchEventsFromUser={fetchEventsFromUser}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <AddEvent user={user} fetchEventsFromUser={fetchEventsFromUser} />
-        </>
-      )}
-
-      {user.type === "superadmin" && <AllUsers user={user} />}
+        <Calendar events={events} />
+      </div>
     </div>
   );
 }

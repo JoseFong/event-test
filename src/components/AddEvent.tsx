@@ -84,7 +84,13 @@ function AddEvent({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <button className="underline">Registrar evento</button>
+        <button className="text-white flex flex-row gap-3 font-bold text-xl items-center bg-pink-500 py-2 px-5 rounded-lg shadow-lg hover:bg-pink-600 active:bg-pink-700 transition-all">
+          <img
+            className="w-6 h-6"
+            src="https://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-hi.png"
+          />
+          Agregar evento
+        </button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -114,7 +120,7 @@ function AddEvent({
               ) : (
                 <button
                   onClick={toggleAllDay}
-                  className="w-5 h-5 rounded-full border-2 border-black bg-blue-600 hover:bg-blue-700 active:bg-blue-800"
+                  className="w-5 h-5 rounded-full border-2 border-black bg-pink-600 hover:bg-pink-700 active:bg-pink-800"
                 ></button>
               )}
             </div>
