@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import ConfirmDeleteUser from "./ConfirmDeleteUser";
 import EditUser from "./EditUser";
 import { Skeleton } from "./ui/skeleton";
+import EventsFromUser from "./EventsFromUser";
 
 function AllUsers({ user }: { user: any }) {
   const [users, setUsers] = useState([]);
@@ -100,6 +101,7 @@ function AllUsers({ user }: { user: any }) {
                       open={editModalOpen}
                       setOpen={setEditModalOpen}
                     />
+                    <EventsFromUser user={u} />
                   </button>
                 </td>
               </tr>
