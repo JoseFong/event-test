@@ -9,6 +9,9 @@ import AllUsers from "./AllUsers";
 import { Skeleton } from "./ui/skeleton";
 import GetPassword from "./GetPassword";
 import EditUser from "./EditUser";
+import AddEvent from "./AddEvent";
+import ConfirmDeleteEvent from "./ConfirmDeleteEvent";
+import EditEvent from "./EditEvent";
 
 function HomePage({ user }: { user: any }) {
   const router = useRouter();
@@ -90,30 +93,67 @@ function HomePage({ user }: { user: any }) {
           </div>
         </div>
       ) : (
-        <table className="mt-1">
-          <thead>
-            <tr>
-              <th className="border-2 border-solid border-black p-1">Id</th>
-              <th className="border-2 border-solid border-black p-1">Evento</th>
-              <th className="border-2 border-solid border-black p-1">Dia</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.map((e: Event) => (
-              <tr key={e.id}>
-                <td className="border-2 border-solid border-black p-1">
-                  {e.id}
-                </td>
-                <td className="border-2 border-solid border-black p-1">
-                  {e.name}
-                </td>
-                <td className="border-2 border-solid border-black p-1">
-                  {e.date}
-                </td>
+        <>
+          <table className="mt-1">
+            <thead>
+              <tr>
+                <th className="border-2 border-solid border-black p-1">Id</th>
+                <th className="border-2 border-solid border-black p-1">
+                  Evento
+                </th>
+                <th className="border-2 border-solid border-black p-1">Dia</th>
+                <th className="border-2 border-solid border-black p-1">
+                  Duracion
+                </th>
+                <th className="border-2 border-solid border-black p-1">
+                  Acciones
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {events.map((e: Event) => (
+                <tr key={e.id}>
+                  <td className="border-2 border-solid border-black p-1">
+                    {e.id}
+                  </td>
+                  <td className="border-2 border-solid border-black p-1">
+                    {e.name}
+                  </td>
+                  <td className="border-2 border-solid border-black p-1">
+                    {e.date}
+                  </td>
+                  <td className="border-2 border-solid border-black p-1">
+                    {e.allday === 1 ? (
+                      <>Todo el día</>
+                    ) : (
+                      <>
+                        {e.end === "" ? (
+                          <>{e.start}</>
+                        ) : (
+                          <>
+                            {e.start} - {e.end}
+                          </>
+                        )}
+                      </>
+                    )}
+                  </td>
+                  <td className="border-2 border-solid border-black p-1">
+                    <EditEvent
+                      user={user}
+                      event={e}
+                      fetchEventsFromUser={fetchEventsFromUser}
+                    />
+                    <ConfirmDeleteEvent
+                      event={e}
+                      fetchEventsFromUser={fetchEventsFromUser}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <AddEvent user={user} fetchEventsFromUser={fetchEventsFromUser} />
+        </>
       )}
 
       {user.type === "superadmin" && <AllUsers user={user} />}

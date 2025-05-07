@@ -23,3 +23,10 @@ export function validPassword(str:string){
     if(!/[A-Z]/.test(str)) return false
     return true
 }
+
+export function validTimes(start:string,end:string){
+    const startInt:number = parseInt(start.replace(":",""))
+    const endInt:number = parseInt(end.replace(":",""))
+    if(startInt>endInt) return false
+    return true
+}

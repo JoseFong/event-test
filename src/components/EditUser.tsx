@@ -20,6 +20,7 @@ import {
   validPassword,
 } from "@/utils/validations";
 import axios from "axios";
+import ConfirmDeleteMyUser from "./ConfirmDeleteMyUser";
 
 function EditUser({
   user,
@@ -35,6 +36,8 @@ function EditUser({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState(user.name);
   const [lastname, setlastname] = useState(user.lastname);
+
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
 
   const initlastname = user.lastname;
   const initmail = user.mail;
@@ -184,6 +187,17 @@ function EditUser({
                       Cambiar Contraseña
                     </button>
                   )}
+                  <button
+                    onClick={() => setConfirmDeleteModalOpen(true)}
+                    className="mt-2 border-2 border-red-500 text-red-500 border-solid py-2 px-3 rounded-xl hover:bg-red-400 hover:text-white transition-colors cursor-pointer active:bg-red-500"
+                  >
+                    Eliminar Cuenta
+                  </button>
+                  <ConfirmDeleteMyUser
+                    open={confirmDeleteModalOpen}
+                    setOpen={setConfirmDeleteModalOpen}
+                    user={user}
+                  />
                 </div>
               </div>
               <p className="mt-3">

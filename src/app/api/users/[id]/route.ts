@@ -16,6 +16,10 @@ export async function DELETE(req:Request){
             const id = pathname.split("/").pop() || ""
             const idNum:number = parseInt(id)
     
+            if(idNum===parseInt(decoded.id)){
+                cookieStore.delete("userId")
+            }
+
             await deleteUser(idNum)
             return NextResponse.json({status:200})
         }
