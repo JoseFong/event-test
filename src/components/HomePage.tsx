@@ -5,19 +5,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import AllUsers from "./AllUsers";
-import { Skeleton } from "./ui/skeleton";
 import GetPassword from "./GetPassword";
 import EditUser from "./EditUser";
 import AddEvent from "./AddEvent";
-import ConfirmDeleteEvent from "./ConfirmDeleteEvent";
-import EditEvent from "./EditEvent";
-import {
-  buildCalendarObj,
-  isThisMonth,
-  isThisWeek,
-  isToday,
-} from "@/utils/dateLogic";
+import { isThisMonth, isThisWeek, isToday } from "@/utils/dateLogic";
 import EventInfo from "./EventInfo";
 import Calendar from "./Calendar";
 
@@ -129,7 +120,7 @@ function HomePage({ user }: { user: any }) {
             ) : (
               <>
                 {eventsToday.map((e: any) => (
-                  <EventInfo e={e} />
+                  <EventInfo e={e} key={e.id} />
                 ))}
               </>
             )}
@@ -143,7 +134,7 @@ function HomePage({ user }: { user: any }) {
             ) : (
               <>
                 {eventsWeek.map((e: any) => (
-                  <EventInfo e={e} />
+                  <EventInfo e={e} key={e.id} />
                 ))}
               </>
             )}
@@ -157,7 +148,7 @@ function HomePage({ user }: { user: any }) {
             ) : (
               <>
                 {eventsMonth.map((e: any) => (
-                  <EventInfo e={e} />
+                  <EventInfo e={e} key={e.id} />
                 ))}
               </>
             )}
@@ -169,7 +160,7 @@ function HomePage({ user }: { user: any }) {
             ) : (
               <>
                 {eventsElse.map((e: any) => (
-                  <EventInfo e={e} />
+                  <EventInfo e={e} key={e.id} />
                 ))}
               </>
             )}

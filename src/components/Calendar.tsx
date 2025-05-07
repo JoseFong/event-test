@@ -30,11 +30,11 @@ function Calendar({ events }: { events: Event[] }) {
       <div className="border-2 border-white p-1">Viernes</div>
       <div className="border-2 border-white p-1">Sabado</div>
       {eventsForCalendar.map((d: Day) => (
-        <div className="border-2 border-white p-1">
+        <div className="border-2 border-white p-1" key={d.id}>
           <div>{d.date}</div>
           <>
             {d.events.map((e: Event) => (
-              <>{e.name}</>
+              <div key={e.id}>{e.name}</div>
             ))}
           </>
         </div>

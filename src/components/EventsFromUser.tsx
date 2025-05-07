@@ -18,22 +18,22 @@ import { Event } from "@/generated/prisma";
 function EventsFromUser({ user }: { user: any }) {
   const [events, setEvents] = useState([]);
 
-  async function fetchEvents() {
-    try {
-      const res = await axios.get("/api/eventsFromUser/" + user.id);
-      setEvents(res.data);
-    } catch (e: any) {
-      if (e.response && e.response.data && e.response.data.message) {
-        toast.error(e.response.data.message);
-      } else {
-        toast.error(e.message);
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const res = await axios.get("/api/eventsFromUser/" + user.id);
+        setEvents(res.data);
+      } catch (e: any) {
+        if (e.response && e.response.data && e.response.data.message) {
+          toast.error(e.response.data.message);
+        } else {
+          toast.error(e.message);
+        }
       }
     }
-  }
 
-  useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [user]);
 
   return (
     <AlertDialog>
