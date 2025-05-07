@@ -10,7 +10,7 @@ import { Skeleton } from "./ui/skeleton";
 import GetPassword from "./GetPassword";
 import EditUser from "./EditUser";
 
-function HomePage({ user }: { user: User }) {
+function HomePage({ user }: { user: any }) {
   const router = useRouter();
   const [events, setEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
