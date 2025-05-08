@@ -7,6 +7,16 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    "bg-spring-main",
+    "text-spring-contrast",
+    "bg-summer-main",
+    "text-summer-contrast",
+    "bg-fall-main",
+    "text-fall-contrast",
+    "bg-winter-main",
+    "text-winter-contrast",
+  ],
   theme: {
   	extend: {
   		backgroundImage: {
@@ -19,6 +29,15 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			fondo: "#6a5ea8",
+			springmain: "#008000",
+			springsec:"#ff8882",
+			summermain:"#f07d10",
+			summersec:"#103174",
+			fallmain:"#f85f01",
+			fallsec:"#918450",
+			wintermain:"#345c64",
+			wintersec:"#9e2a2b",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

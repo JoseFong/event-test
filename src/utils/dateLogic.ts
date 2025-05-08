@@ -110,3 +110,9 @@ export function parseToTijuanaDate(str: string): Date {
     date: string; // Fecha del día en formato string
     events: Event[]; // Array de eventos que ocurren ese día
   }
+
+  export function getMonthName(){
+    const nombres = ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"]
+    const now = new Date()
+    return nombres[now.getMonth()]+" "+now.getFullYear()
+  }

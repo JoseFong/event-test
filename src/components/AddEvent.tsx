@@ -84,7 +84,7 @@ function AddEvent({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <button className="text-white flex flex-row gap-3 font-bold text-xl items-center bg-pink-500 py-2 px-5 rounded-lg shadow-lg hover:bg-pink-600 active:bg-pink-700 transition-all">
+        <button className="text-white flex flex-row gap-3 font-bold text-lg items-center transition-all hover:scale-105">
           <img
             className="w-6 h-6"
             src="https://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-hi.png"

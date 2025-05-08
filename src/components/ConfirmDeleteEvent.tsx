@@ -15,22 +15,18 @@ import { Button } from "@/components/ui/button";
 import { Event } from "@/generated/prisma";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-function ConfirmDeleteEvent({
-  event,
-  fetchEventsFromUser,
-}: {
-  event: Event;
-  fetchEventsFromUser: () => void;
-}) {
+function ConfirmDeleteEvent({ event }: { event: Event }) {
   const [open, setOpen] = useState(false);
+
+  const router = useRouter();
 
   async function deleteEvent() {
     try {
       const res = await axios.delete("/api/events/" + event.id);
       toast.success("Evento eliminado exitosamente");
-      fetchEventsFromUser();
-      setOpen(false);
+      window.location.reload();
     } catch (e: any) {
       if (e.response && e.response.data && e.response.data.message) {
         toast.error(e.response.data.message);

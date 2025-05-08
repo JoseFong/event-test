@@ -18,21 +18,19 @@ import axios from "axios";
 import { Event } from "@/generated/prisma";
 
 function EditEvent({
-  user,
   event,
-  fetchEventsFromUser,
+  open,
+  setOpen,
 }: {
-  user: any;
   event: Event;
-  fetchEventsFromUser: () => void;
+  open: any;
+  setOpen: any;
 }) {
   const [name, setName] = useState(event.name);
   const [date, setDate] = useState(event.date);
   const [allDay, setAllDay] = useState<number>(event.allday);
   const [start, setStart] = useState("" + event.start);
   const [end, setEnd] = useState("" + event.end);
-
-  const [open, setOpen] = useState(false);
 
   async function editEvent() {
     try {
@@ -68,8 +66,7 @@ function EditEvent({
 
       const res = await axios.patch("/api/events/" + event.id, body);
       toast.success("Evento registrado exitosamente");
-      fetchEventsFromUser();
-      setOpen(false);
+      window.location.reload();
     } catch (e: any) {
       if (e.response && e.response.data && e.response.data.message) {
         toast.error(e.response.data.message);
@@ -87,7 +84,7 @@ function EditEvent({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <button className="underline">Editar</button>
+        <div />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
