@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
   isEmpty,
   validMail,
@@ -9,6 +10,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
+import closedEye from "@/imgs/closed-eye.png";
+import openEye from "@/imgs/open-eye.png";
 
 function Register() {
   const [mail, setMail] = useState("");
@@ -16,6 +20,8 @@ function Register() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmedPassword] = useState("");
+
+  const [showingPassword, setShowingPassword] = useState(false);
 
   const router = useRouter();
 
@@ -66,52 +72,87 @@ function Register() {
   }
 
   return (
-    <div className="p-2">
-      <h1 className="text-lg font-bold">Registrarse</h1>
-      <div className="flex flex-col gap-1">
-        <label>Correo</label>
-        <input
-          placeholder="Correo"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={mail}
-          onChange={(e) => setMail(e.target.value)}
-        />
-        <label>Nombre</label>
-        <input
-          placeholder="Nombre"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label>Apellido</label>
-        <input
-          placeholder="Apellido"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <label>Contraseña</label>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label>Confirmar Contraseña</label>
-        <input
-          type="password"
-          placeholder="Confirmar contraseña"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={confirmPassword}
-          onChange={(e) => setConfirmedPassword(e.target.value)}
-        />
-        <button
-          onClick={register}
-          className="bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 p-1"
-        >
-          Registrarse
-        </button>
+    <div className="min-w-screen min-h-screen flex items-center justify-center bg-zinc-200">
+      <div className="bg-wintermain p-8 text-white shadow-xl rounded-xl flex flex-col gap-2">
+        <h1 className="text-white text-xl font-bold">Registar Usuario</h1>
+        <div className="flex flex-col gap-1">
+          <label>Correo</label>
+          <input
+            className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+            placeholder="Correo"
+            value={mail}
+            onChange={(e) => setMail(e.target.value)}
+          />
+          <label>Nombre</label>
+          <input
+            className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+            placeholder="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <label>Apellido</label>
+          <input
+            className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+            placeholder="Apellido"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <div className="flex flex-row gap-2 items-center mt-1">
+            <label>Contraseña</label>
+            {showingPassword ? (
+              <Image
+                src={closedEye}
+                alt="Mostrar Contraseña"
+                className="w-6 h-6 cursor-pointer"
+                onClick={() => setShowingPassword(!showingPassword)}
+              />
+            ) : (
+              <Image
+                src={openEye}
+                alt="Ocultar Contraseña"
+                className="w-6 h-6 cursor-pointer"
+                onClick={() => setShowingPassword(!showingPassword)}
+              />
+            )}
+          </div>
+          {showingPassword ? (
+            <input
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          ) : (
+            <input
+              type="password"
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          )}
+
+          <label>Confirmar Contraseña</label>
+          {showingPassword ? (
+            <input
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Confirmar Contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmedPassword(e.target.value)}
+            />
+          ) : (
+            <input
+              type="password"
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Confirmar Contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmedPassword(e.target.value)}
+            />
+          )}
+        </div>
+        <Button onClick={register} className="mt-2" variant={"secondary"}>
+          Registrar
+        </Button>
       </div>
     </div>
   );

@@ -1,13 +1,19 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { isEmpty } from "@/utils/validations";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
+import openEye from "@/imgs/open-eye.png";
+import closeEye from "@/imgs/closed-eye.png";
 
 function Login() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -38,33 +44,58 @@ function Login() {
   }
 
   return (
-    <div className="p-2">
-      <h1 className="text-lg font-bold">Login</h1>
-      <div className="flex flex-col gap-1">
-        <label>Correo</label>
-        <input
-          placeholder="Correo"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={mail}
-          onChange={(e) => setMail(e.target.value)}
-        />
-        <label>Contraseña</label>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          className="bg-zinc-100 rounded-md py-1 px-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          onClick={login}
-          className="bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 p-1"
-        >
-          Login
-        </button>
-        <button onClick={goToRegister} className="underline text-sm">
-          Registrar nuevo usuario
-        </button>
+    <div className="min-w-screen min-h-screen flex items-center justify-center bg-zinc-200">
+      <div className="bg-wintermain p-8 text-white shadow-xl rounded-xl flex flex-col gap-2">
+        <h1 className="text-white text-xl font-bold">Iniciar Sesión</h1>
+        <div className="flex flex-col gap-1">
+          <label>Correo</label>
+          <input
+            className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+            placeholder="Correo"
+            value={mail}
+            onChange={(e) => setMail(e.target.value)}
+          />
+          <div className="flex flex-row gap-2 items-center mt-2">
+            <label>Contraseña</label>
+            {showPassword ? (
+              <Image
+                src={closeEye}
+                alt={"Ocultar contraseña"}
+                className="cursor-pointer w-6 h-6"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <Image
+                src={openEye}
+                alt={"Mostrar contraseña"}
+                className="cursor-pointer w-6 h-6"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
+          {showPassword ? (
+            <input
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          ) : (
+            <input
+              type="password"
+              className="bg-zinc-100 py-1 px-2 rounded-lg text-black"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          )}
+        </div>
+        <Button onClick={login} className="mt-2" variant={"secondary"}>
+          Iniciar sesión
+        </Button>
+        <Button onClick={goToRegister} className="text-white" variant={"link"}>
+          Registrar usuario
+        </Button>
       </div>
     </div>
   );

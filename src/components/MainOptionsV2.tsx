@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import GetPassword from "./GetPassword";
 import EditUser from "./EditUser";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import GetPassword from "./GetPassword";
-import AddEvent from "./AddEvent";
 import SideBarV2 from "./SideBarV2";
 
-function MainOptions({ user }: { user: any }) {
+function MainOptionsV2({ user, events }: { user: any; events: any[] }) {
   const [getPasswordModalOpen, setGetPasswordModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [showSideBar, setShowSideBar] = useState(false);
 
   const router = useRouter();
 
@@ -33,15 +33,25 @@ function MainOptions({ user }: { user: any }) {
   }
 
   return (
-    <div>
-      <div className="flex flex-row gap-3">
-        <h1 className="font-bold xl:text-4xl text-2xl">
-          Bienvenido(a) {user.name} {user.lastname}
+    <div className="flex p-2 w-full items-center justify-center">
+      {showSideBar && (
+        <SideBarV2
+          user={user}
+          events={events}
+          setShowSideBar={setShowSideBar}
+        />
+      )}
+      <button
+        onClick={() => setShowSideBar(true)}
+        className="w-10 absolute left-3 shadow-md p-1"
+      >
+        <img src="https://img.icons8.com/ios11/512/FFFFFF/menu--v2.png" />
+      </button>
+      <div className="flex flex-row gap-2 items-center justify-center">
+        <h1 className="sm:block hidden text-2xl font-bold text-white">
+          Bienvenido {user.name} {user.lastname}
         </h1>
-        <button
-          className="w-[50px]"
-          onClick={() => setGetPasswordModalOpen(true)}
-        >
+        <button className="w-10" onClick={() => setGetPasswordModalOpen(true)}>
           <img
             src="https://img.icons8.com/m_rounded/512/FFFFFF/settings.png"
             className="hover:opacity-70 transition-all hover:scale-110"
@@ -60,12 +70,8 @@ function MainOptions({ user }: { user: any }) {
           />
         </button>
       </div>
-      <div className="h-2 w-full bg-white rounded-lg mt-3 mb-1"></div>
-      <div className="flex items-center justify-center mt-2">
-        <AddEvent user={user} />
-      </div>
     </div>
   );
 }
 
-export default MainOptions;
+export default MainOptionsV2;

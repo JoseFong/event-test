@@ -64,7 +64,7 @@ function Calendar({ events, user }: { events: any[]; user: any }) {
       {loadingEvents ? (
         <Skeleton className="w-[500px] h-[500px]" />
       ) : (
-        <div className="text-zinc-900 grid grid-cols-7 gap-4">
+        <div className="text-zinc-900 grid grid-cols-7 sm:gap-4 gap-1">
           <div className="flex items-center justify-center">
             <div
               className={`${season === "sp" && "text-springsec"} ${
@@ -147,7 +147,7 @@ function Calendar({ events, user }: { events: any[]; user: any }) {
               {d.date !== "" ? (
                 <div
                   onClick={d.events.length > 0 ? () => openModal(d) : undefined}
-                  className={`flex items-center justify-center  h-16 w-16 rounded-full ${
+                  className={`flex items-center justify-center  sm:h-16 sm:w-16 w-12 h-12 rounded-full ${
                     d.date === todayStr && "border-4 border-black"
                   } ${
                     d.events.length > 0 &&

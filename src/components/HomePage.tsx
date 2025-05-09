@@ -6,6 +6,7 @@ import { getMonthName } from "@/utils/dateLogic";
 import Calendar from "./Calendar";
 import EventsSideBar from "./EventsSideBar";
 import MainOptions from "./MainOptions";
+import MainOptionsV2 from "./MainOptionsV2";
 
 function HomePage({ user }: { user: any }) {
   const [events, setEvents] = useState([]);
@@ -44,18 +45,27 @@ function HomePage({ user }: { user: any }) {
   }, [user]);
 
   return (
-    <div className="min-w-screen min-h-screen flex flex-row">
+    <div className="min-w-screen min-h-screen flex flex-row bg-zinc-100">
+      <div
+        className={`${season === "sp" && "bg-springmain"} ${
+          season === "su" && "bg-summermain"
+        } ${season === "fa" && "bg-fallmain"} ${
+          season === "wi" && "bg-wintermain"
+        } bg-black w-screen fixed shadow-lg flex items-center justify-center lg:hidden`}
+      >
+        <MainOptionsV2 user={user} events={events} />
+      </div>
       <div
         className={` ${season === "sp" && "bg-springmain"} ${
           season === "su" && "bg-summermain"
         } ${season === "fa" && "bg-fallmain"} ${
           season === "wi" && "bg-wintermain"
-        } min-h-screen p-10 text-white shadow-lg w-1/3 h-screen overflow-y-auto`}
+        } min-h-screen p-10 text-white shadow-lg w-1/3 h-screen overflow-y-auto hidden lg:block`}
       >
         <MainOptions user={user} />
         <EventsSideBar events={events} user={user} />
       </div>
-      <div className="min-h-screen w-2/3 flex items-center justify-center flex-col">
+      <div className="min-h-screen lg:w-2/3 w-full flex items-center justify-center flex-col">
         <h1
           className={`font-bold text-4xl mb-3 ${
             season === "sp" && "text-springsec"
