@@ -58,7 +58,7 @@ function SideBarV2({
         onClick={handleClose}
       ></div>
       <div
-        className={`${season === "sp" && "bg-springmain"} ${
+        className={`overflow-y-auto ${season === "sp" && "bg-springmain"} ${
           season === "su" && "bg-summermain"
         } ${season === "fa" && "bg-fallmain"} ${
           season === "wi" && "bg-wintermain"
@@ -68,7 +68,10 @@ function SideBarV2({
       >
         <div className="flex flex-row gap-3 items-center justify-center">
           <h1 className="text-3xl font-bold">{today}</h1>
-          <button className="font-bold text-2xl" onClick={handleClose}>
+          <button
+            className="absolute top-2 right-4 font-bold text-2xl"
+            onClick={handleClose}
+          >
             X
           </button>
         </div>
