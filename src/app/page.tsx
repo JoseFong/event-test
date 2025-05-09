@@ -19,12 +19,6 @@ async function Index() {
     redirect("/login");
   }
 
-  async function logout() {
-    const cookieStore = await cookies();
-    cookieStore.delete("userId");
-    redirect("/login");
-  }
-
   return (
     <>
       <HomePage user={userInfo} />

@@ -16,13 +16,7 @@ import toast from "react-hot-toast";
 import { isEmpty, validTimes } from "@/utils/validations";
 import axios from "axios";
 
-function AddEvent({
-  user,
-  fetchEventsFromUser,
-}: {
-  user: any;
-  fetchEventsFromUser: () => void;
-}) {
+function AddEvent({ user }: { user: any }) {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [allDay, setAllDay] = useState(0);
@@ -65,7 +59,7 @@ function AddEvent({
 
       const res = await axios.post("/api/events", body);
       toast.success("Evento registrado exitosamente");
-      fetchEventsFromUser();
+      window.location.reload();
       setOpen(false);
     } catch (e: any) {
       if (e.response && e.response.data && e.response.data.message) {

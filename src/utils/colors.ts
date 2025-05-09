@@ -4,32 +4,32 @@ export function getSeasonalColors() {
     const month = now.getMonth()+1
     if (month >= 3 && month < 6) {
       return {
-        mcb: "bg-springmain",
-        mct: "text-springmain",
-        scb: "bg-springsec",
-        sct: "text-springsec",
+        mcbx: "bg-springmain",
+        mctx: "text-springmain",
+        scbx: "bg-springsec",
+        sctx: "text-springsec",
       };
     } else if (month >= 6 && month < 9) {
       return {
-        mcb: "bg-summermain",
-        mct: "text-summermain",
-        scb: "bg-summersec",
-        sct: "text-summersec",
+        mcbx: "bg-summermain",
+        mctx: "text-summermain",
+        scbx: "bg-summersec",
+        sctx: "text-summersec",
       };
     } else if (month >= 9 && month < 12) {
       return {
-        mcb: "bg-fallmain",
-        mct: "text-fallmain",
-        scb: "bg-fallsec",
-        sct: "text-fallsec",
+        mcbx: "bg-fallmain",
+        mctx: "text-fallmain",
+        scbx: "bg-fallsec",
+        sctx: "text-fallsec",
       };
     } else {
       console.log("Es invierno")
       return {
-        mcb: "bg-wintermain",
-        mct: "text-wintermain",
-        scb: "bg-wintersec",
-        sct: "text-wintersec",
+        mcbx: "bg-wintermain",
+        mctx: "text-wintermain",
+        scbx: "bg-wintersec",
+        sctx: "text-wintersec",
       };
     }
   }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -98,6 +98,14 @@ function EditUser({
       }
     }
   }
+
+  useEffect(() => {
+    setMail(user.mail);
+    setName(user.name);
+    setlastname(user.lastname);
+    setPassword("");
+    setConfirmPassword("");
+  }, [open, setOpen]);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>

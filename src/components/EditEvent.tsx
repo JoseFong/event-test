@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,21 +18,29 @@ import axios from "axios";
 import { Event } from "@/generated/prisma";
 
 function EditEvent({
+  user,
   event,
   open,
   setOpen,
 }: {
+  user: any;
   event: Event;
   open: any;
   setOpen: any;
 }) {
   const [name, setName] = useState(event.name);
   const [date, setDate] = useState(event.date);
-  const [allDay, setAllDay] = useState<number>(event.allday);
+  const [allDay, setAllDay] = useState(event.allday);
   const [start, setStart] = useState("" + event.start);
   const [end, setEnd] = useState("" + event.end);
 
-  async function editEvent() {
+  const initname = event.name;
+  const initdate = event.date;
+  const initallday = event.allday;
+  const initstart = "" + event.start;
+  const initend = "" + event.end;
+
+  async function edit() {
     try {
       if (isEmpty(name) || isEmpty(date))
         throw new Error("Complete todos los campos");
@@ -67,6 +75,7 @@ function EditEvent({
       const res = await axios.patch("/api/events/" + event.id, body);
       toast.success("Evento registrado exitosamente");
       window.location.reload();
+      setOpen(false);
     } catch (e: any) {
       if (e.response && e.response.data && e.response.data.message) {
         toast.error(e.response.data.message);
@@ -81,14 +90,19 @@ function EditEvent({
     if (allDay === 0) setAllDay(1);
   }
 
+  useEffect(() => {
+    setName(event.name);
+    setDate(event.date);
+    setAllDay(event.allday);
+    setStart("" + event.start);
+    setEnd("" + event.end);
+  }, [open]);
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <div />
-      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Editar Evento {event.name}</AlertDialogTitle>
+          <AlertDialogTitle>{event.name}</AlertDialogTitle>
           <AlertDialogDescription className="text-black flex flex-col gap-1">
             <label>Nombre</label>
             <input
@@ -114,7 +128,7 @@ function EditEvent({
               ) : (
                 <button
                   onClick={toggleAllDay}
-                  className="w-5 h-5 rounded-full border-2 border-black bg-blue-600 hover:bg-blue-700 active:bg-blue-800"
+                  className="w-5 h-5 rounded-full border-2 border-black bg-pink-600 hover:bg-pink-700 active:bg-pink-800"
                 ></button>
               )}
             </div>
@@ -141,8 +155,20 @@ function EditEvent({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <Button onClick={editEvent}>Continuar</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cerrar
+          </Button>
+          {initname === name &&
+          initallday === allDay &&
+          initdate === date &&
+          initstart === start &&
+          initend === end ? (
+            <Button disabled onClick={edit}>
+              Editar
+            </Button>
+          ) : (
+            <Button onClick={edit}>Editar</Button>
+          )}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

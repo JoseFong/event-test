@@ -17,9 +17,15 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function ConfirmDeleteEvent({ event }: { event: Event }) {
-  const [open, setOpen] = useState(false);
-
+function ConfirmDeleteEvent({
+  event,
+  open,
+  setOpen,
+}: {
+  event: Event;
+  open: any;
+  setOpen: any;
+}) {
   const router = useRouter();
 
   async function deleteEvent() {
@@ -38,7 +44,7 @@ function ConfirmDeleteEvent({ event }: { event: Event }) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <button className="underline">Eliminar</button>
+        <div />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
