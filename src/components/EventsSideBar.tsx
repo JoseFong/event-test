@@ -21,7 +21,7 @@ function EventsSideBar({ events, user }: { events: Event[]; user: any }) {
     setEventsToday([]);
     setEventsWeek([]);
     setEventsElse([]);
-    if (events.length > 0) {
+    if (events.length) {
       events.map((e: Event) => {
         if (isToday(e.date)) {
           setEventsToday((eventsToday) => [...eventsToday, e]);

@@ -27,9 +27,6 @@ export function validPassword(str:string){
 }
 
 export function validTimes(start:string,end:string){
-    const startInt:number = parseInt(start.replace(":",""))
-    const endInt:number = parseInt(end.replace(":",""))
-    if(startInt>endInt) return false
     return true
 }
 
